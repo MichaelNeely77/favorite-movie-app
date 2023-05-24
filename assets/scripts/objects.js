@@ -8,6 +8,24 @@ const addMovieHandler = () => {
 
     const movies = [];
 
+    const renderMovies = () => {
+        const movieList = document.getElementById('movie-list');
+
+        if (movies.length === 0) {
+            movieList.classList.remove('visible');
+            return;
+        } else {
+            movieList.classList.add('visible');
+        }
+        movieList.innerHTML = ''; // clears fields; not ideal but it works for now
+
+        movies.forEach((movie) => {
+            const movieEl = document.createElement('li');
+            movieEl.textContent = movie.info.title;
+            movieList.append(movieEl);
+        });
+    };
+
     if(
         title.trim() === '' ||
         extraName.trim() === '' ||
@@ -24,7 +42,7 @@ const addMovieHandler = () => {
         id: Math.random()
     };
     movies.push(newMovie);
-    console.log(newMovie);
+    renderMovies();
 
 
 };
