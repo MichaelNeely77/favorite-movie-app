@@ -55,7 +55,7 @@ const addMovieHandler = () => {
     renderMovies();
 };
 
-const searchMovieHandler = (filter = '') => {
+const searchMovieHandler = () => {
     const filterTerm = document.getElementById('filter-title').value;
     renderMovies(filterTerm);
 };
