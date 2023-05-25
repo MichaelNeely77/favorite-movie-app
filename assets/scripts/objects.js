@@ -49,7 +49,7 @@ const addMovieHandler = () => {
             title, // If the key and the value are the same, JavaScript will automatically assign teh value to the key. Will not work, if value is a string
             [extraName]: extraValue
         },
-        id: Math.random()
+        id: Math.random().toString()
     };
     movies.push(newMovie);
     renderMovies();
