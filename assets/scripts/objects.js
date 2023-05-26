@@ -17,11 +17,12 @@ const renderMovies = (filter = '') => {
 
     filteredMovies.forEach((movie) => {
         const movieEl = document.createElement('li');
+
         const { info, ...otherProps } = movie;
         console.log(otherProps);
-        const { title: movieTitle } = info;
-        let text = movieTitle + ' - ';
-        console.log(movieTitle);
+        // const { title: movieTitle } = info; No longer needed after formatting the title
+        // const { getFormattedTitle } =movie;
+        let text = movie.getFormattedTitle() + ' - ';
         for (const key in info) {
             if (key !== 'title') {
                 text = text + `${key}: ${info[key]}`;
@@ -53,7 +54,10 @@ const addMovieHandler = () => {
             title, // If the key and the value are the same, JavaScript will automatically assign teh value to the key. Will not work, if value is a string
             [extraName]: extraValue
         },
-        id: Math.random().toString()
+        id: Math.random().toString(),
+        getFormattedTitle: function() {
+            return this.info.title.toUpperCase();
+        }
     };
     movies.push(newMovie);
     renderMovies();
