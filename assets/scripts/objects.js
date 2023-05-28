@@ -25,7 +25,7 @@ const renderMovies = (filter = '') => {
         // getFormattedTitle = getFormattedTitle.bind(movie);
         let text = getFormattedTitle.apply(movie) + ' - ';
         for (const key in info) {
-            if (key !== 'title') {
+            if (key !== 'title' && key !== '_title') {
                 text = text + `${key}: ${info[key]}`;
             }
         }
@@ -43,7 +43,6 @@ const addMovieHandler = () => {
 
 
     if(
-        title.trim() === '' ||
         extraName.trim() === '' ||
         extraValue.trim() === ''
     ) {
@@ -52,15 +51,28 @@ const addMovieHandler = () => {
 
     const newMovie = {
         info: {
-            title, // If the key and the value are the same, JavaScript will automatically assign teh value to the key. Will not work, if value is a string
+            set title(val) {
+                if (val.trim() === '') {
+                    this._title = 'DEFAULT';
+                    return;
+                }
+                this._title = val;
+            },
+             get title() {
+                return this._title;
+             },// If the key and the value are the same, JavaScript will automatically assign teh value to the key. Will not work, if value is a string
             [extraName]: extraValue
         },
         id: Math.random().toString(),
         getFormattedTitle() {
-
+            console.log(this);
             return this.info.title.toUpperCase();
         }
     };
+
+    newMovie.info.title = title;
+    console.log(newMovie.info.title);
+
     movies.push(newMovie);
     renderMovies();
 };
